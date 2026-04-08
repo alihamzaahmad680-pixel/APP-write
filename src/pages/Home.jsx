@@ -47,24 +47,30 @@
 import React, { useEffect, useState } from 'react'
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from '../components'
+import { useSelector } from 'react-redux';
 
 function Home() {
     const [posts, setPosts] = useState([])
+    const authStatus = useSelector((state) => state.auth.status);
 
     useEffect(() => {
         const fetchPosts = async () => {
+            if (!authStatus) {
+                setPosts([]);
+                return;
+            }
+
             const res = await appwriteService.getPosts();
 
-            // 🔥 SAFE CHECK
             if (res && res.documents) {
                 setPosts(res.documents)
             } else {
-                setPosts([]) // fallback
+                setPosts([])
             }
         }
 
         fetchPosts()
-    }, [])
+    }, [authStatus])
 
     // 🔥 SAFE CHECK (no undefined error)
     if (!posts || posts.length === 0) {

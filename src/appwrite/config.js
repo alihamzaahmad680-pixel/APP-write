@@ -102,12 +102,10 @@ export class Service{
 
             )
         } catch (error) {
-            // console.log("Appwrite serive :: getPosts :: error", error);
-            // console.log("Appwrite service :: getPosts :: error", error?.message || error);
-            console.log("getPosts error:", error);
-            return false;
-            // return [];
-            // return { documents: [] };
+            if (error?.code !== 401) {
+                console.log("Appwrite serive :: getPosts :: error", error);
+            }
+            return { documents: [] };
         }
     }
 

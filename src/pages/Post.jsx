@@ -4,7 +4,6 @@ import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
-import { Editor } from '@tinymce/tinymce-react';
 
 export default function Post() {
     const [post, setPost] = useState(null);
@@ -32,11 +31,6 @@ export default function Post() {
             }
         });
     };
-    <Editor
-  apiKey="keskcjdjilqzp6u4l37vxqxe6krm31gq10z6qjuai55kcb0j" // 🔹 Yahan put karo
-  value={post.content}
-  onEditorChange={(newContent) => setPost({ ...post, content: newContent })}
-/>
 
     return post ? (
         <div className="py-8">
