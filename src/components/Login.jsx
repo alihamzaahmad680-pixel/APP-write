@@ -98,26 +98,20 @@ function Login() {
     const login = async (data) => {
         setError("");
         try {
-            // 1️⃣ Login first
             const session = await authService.login({
                 email: data.email,
                 password: data.password
             });
-            console.log("Session:", session);
 
-            // 2️⃣ Get current user AFTER login
             const userData = await authService.getCurrentUser();
-            console.log("UserData:", userData);
 
-            // 3️⃣ If user exists, update Redux and navigate
-            if (userData) {
-                dispatch(authLogin(userData));
+            if (session && userData) {
+                dispatch(authLogin({ userData }));
                 navigate("/"); // redirect to home page
             }
 
         } catch (error) {
             setError(error.message || "Login failed");
-            console.log("Login Error:", error);
         }
     }
 
